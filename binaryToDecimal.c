@@ -1,22 +1,35 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 /**
  *
  * Decimal to binary converter, by Martin Brown
  * A binary to decimal converter that I made from scratch
  *
 */
-char * decimalToBinary(int decimal, int maxBits) {
+char * decimalToBinary(int decimal) {
 
     int i;
+    int maxBits; 
+
+    int position = decimal; // will be used to determine how many bits are needed to represent the number
     int gotLeftmostBit = 0; // don't start concatenating until we have most significant bit
-    char * binary = malloc(maxBits * sizeof(char));
+    int isHighBit = 1; // flag is on if the next bit is 1
 
     char lowBit[2] = "0";
     char highBit[2] = "1";
 
+    char * binary = malloc(maxBits * sizeof(char));
+
     if(decimal == 0) // special case
         return "0";
 
-    int isHighBit = 1; // flag is on if the next bit is 1
+    for(i = 0; position > 0; i++) {
+        position = position >> 1;
+    }   
+
+    maxBits = i;
 
     // start looping at the most significant bit down to the least
     for(i = maxBits - 1; i >= 0; i--) {
@@ -38,4 +51,14 @@ char * decimalToBinary(int decimal, int maxBits) {
     }   
 
     return binary;
+}
+
+int main(int argc, char ** argv) {
+
+    if(argc > 1) {
+        int decimal = atoi(argv[1]);
+        printf("%d = %s\n", decimal, decimalToBinary(decimal));
+    }   
+
+    return 0;
 }
