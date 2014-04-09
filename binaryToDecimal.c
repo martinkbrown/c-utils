@@ -1,6 +1,7 @@
 /**
  *
  * Decimal to binary converter, by Martin Brown
+ * A binary to decimal converter that I made from scratch
  *
 */
 char * decimalToBinary(int decimal, int maxBits) {
